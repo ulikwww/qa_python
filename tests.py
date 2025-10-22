@@ -44,9 +44,11 @@ class TestBooksCollector:
         assert result == expected
 
     # проверяем возврат пустого словаря,если еще книги не добавлены, тест №5
-    def test_get_books_genre_empty(self, collector):
+    def test_get_books_genre_not_empty(self, collector):
+        collector.add_new_book('Гарри Поттер')
+        collector.set_book_genre('Гарри Поттер', 'Фантастика')
         result = collector.get_books_genre()
-        assert result == {}
+        assert result == {'Гарри Поттер': 'Фантастика'}
 
     # проверяем возврат детских книг, тест №6
     def test_get_books_for_children_only_children(self, collector):
@@ -77,5 +79,14 @@ class TestBooksCollector:
         collector.favorites = ['Гарри Поттер', 'Шрек']
         result = collector.get_list_of_favorites_books()
         assert result == ['Гарри Поттер', 'Шрек']
+    # проверяем работу метода get_book_genre, тест №10
+    def test_get_book_genre_return_correct_genre(self, collector):
+        collector.add_new_book('Гарри Поттер')
+        collector.set_book_genre('Гарри Поттер', 'Фантастика')
+        result = collector.get_book_genre('Гарри Поттер')
+        assert result == 'Фантастика'
+
+
+    
 
 
